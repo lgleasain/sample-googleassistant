@@ -246,8 +246,8 @@ public class AssistantActivity extends Activity implements Button.OnButtonEventL
                     try {
                         Log.i(TAG, "creating voice hat driver");
                         mVoiceHat = new VoiceHatDriver(
-                                BoardDefaults.getI2SDeviceForVoiceHat(),
-                                BoardDefaults.getGPIOForVoiceHatTrigger(),
+                                BoardDefaults.Companion.getI2SDeviceForVoiceHat(),
+                                BoardDefaults.Companion.getGpioForVoiceHatTrigger(),
                                 AUDIO_FORMAT_STEREO
                         );
                         mVoiceHat.registerAudioInputDriver();
@@ -257,11 +257,11 @@ public class AssistantActivity extends Activity implements Button.OnButtonEventL
                     }
                 }
             }
-            mButton = new Button(BoardDefaults.getGPIOForButton(), Button.LogicState.PRESSED_WHEN_LOW);
+            mButton = new Button(BoardDefaults.Companion.getGpioForButton(), Button.LogicState.PRESSED_WHEN_LOW);
             mButton.setDebounceDelay(BUTTON_DEBOUNCE_DELAY_MS);
             mButton.setOnButtonEventListener(this);
             PeripheralManagerService pioService = new PeripheralManagerService();
-            mLed = pioService.openGpio(BoardDefaults.getGPIOForLED());
+            mLed = pioService.openGpio(BoardDefaults.Companion.getGpioForLED());
             mLed.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW);
         } catch (IOException e) {
             Log.e(TAG, "error configuring peripherals:", e);
@@ -293,7 +293,7 @@ public class AssistantActivity extends Activity implements Button.OnButtonEventL
         try {
             mAssistantService = EmbeddedAssistantGrpc.newStub(channel)
                     .withCallCredentials(MoreCallCredentials.from(
-                            Credentials.fromResource(this, R.raw.credentials)
+                            Credentials.Companion.fromResource(this, R.raw.credentials)
                     ));
         } catch (IOException|JSONException e) {
             Log.e(TAG, "error creating assistant service:", e);

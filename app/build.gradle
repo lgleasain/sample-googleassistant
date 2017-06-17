@@ -15,6 +15,7 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.protobuf'
 
 android {
@@ -28,7 +29,7 @@ android {
         versionCode 1
         versionName "1.0"
         jackOptions {
-            enabled true
+  //          enabled true
         }
     }
     buildTypes {
@@ -39,8 +40,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -82,4 +83,8 @@ dependencies {
     }
     compile 'javax.annotation:javax.annotation-api:1.2'
     compile 'com.google.android.things.contrib:driver-button:0.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
